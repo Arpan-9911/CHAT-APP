@@ -6,6 +6,7 @@ import cors from 'cors'
 import http from 'http'
 import { connectDB } from './lib/db.js'
 import { Server } from 'socket.io'
+import cron from 'node-cron'
 
 import userRouter from './routes/user.js'
 import messageRouter from './routes/message.js'
@@ -14,7 +15,7 @@ const app = express()
 const server = http.createServer(app)
 
 export const io = new Server(server, {
-  cors: { origin: '*' } 
+  cors: { origin: 'https://myquickchat.netlify.app' } 
 })
 export const userSocketMap = {}
 io.on('connection', (socket) => {
@@ -39,6 +40,15 @@ app.get("/", (req, res) => {
 })
 app.use("/user", userRouter)
 app.use("/message", messageRouter)
+
+const BACKEND_URL = 'https://chat-app-il5e.onrender.com'
+cron.schedule('*/10 * * * *', () => {
+  http.get(BACKEND_URL, (res) => {
+    console.log(res.statusCode)
+  }).on('error', (err) => {
+    console.log(err)
+  })
+})
 
 await connectDB();
 
