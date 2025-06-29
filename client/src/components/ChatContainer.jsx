@@ -38,7 +38,7 @@ const ChatContainer = () => {
     if(scrollEnd.current && messages) {
       setTimeout(() => {
         scrollEnd.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 20);
     }
   }, [messages])
 
@@ -86,8 +86,8 @@ const ChatContainer = () => {
             accept='image/*'
             hidden
           />
-          <label htmlFor="image">
-            <img src={assets.gallery_icon} alt="image" className='w-5 h-5 mr-2 cursor-pointer' />
+          <label htmlFor="image" className='w-5 h-5'>
+            <img src={assets.gallery_icon} alt="image" className='w-full h-full mr-2 cursor-pointer' />
           </label>
         </div>
         <img onClick={handleSendMessage} src={assets.send_button} alt="send" className='w-7 h-7 cursor-pointer' />
