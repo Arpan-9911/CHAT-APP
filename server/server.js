@@ -3,6 +3,7 @@ dotenv.config()
 
 import express from 'express'
 import cors from 'cors'
+import http from 'http'
 import https from 'https'
 import { connectDB } from './lib/db.js'
 import { Server } from 'socket.io'
@@ -12,7 +13,7 @@ import userRouter from './routes/user.js'
 import messageRouter from './routes/message.js'
 
 const app = express()
-const server = https.createServer(app)
+const server = http.createServer(app)
 
 export const io = new Server(server, {
   cors: { origin: 'https://myquickchat.netlify.app' } 
